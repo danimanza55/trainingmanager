@@ -1,1 +1,3 @@
-Hola markez vamos a hacer la actualizacion de la aplicacion version 4.
+BBDD - Markez
+Activities, Buttons. 
+
