@@ -231,6 +231,7 @@ public class registroEquipo extends javax.swing.JFrame {
            resultado=1;
            
             if (resultado==1){
+                JOptionPane.showMessageDialog(null, "Registro completado satisfactoriamente.");
                 Equipos form = new Equipos();
                 form.setVisible(true);
                 this.dispose();

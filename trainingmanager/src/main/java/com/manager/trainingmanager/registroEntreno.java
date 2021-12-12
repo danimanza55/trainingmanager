@@ -171,6 +171,7 @@ public class registroEntreno extends javax.swing.JFrame {
            resultado=1;
            
             if (resultado==1){
+                JOptionPane.showMessageDialog(null, "Registro completado satisfactoriamente.");
                 entrenamientos form = new entrenamientos();
                 form.setVisible(true);
                 this.dispose();

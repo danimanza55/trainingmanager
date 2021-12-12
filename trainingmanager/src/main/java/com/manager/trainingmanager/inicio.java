@@ -139,7 +139,7 @@ public class inicio extends javax.swing.JFrame {
                 form.setVisible(true);
                 this.dispose();
       }}else{
-    JOptionPane.showMessageDialog(null, "Error de acceso usuario no registrado");
+    JOptionPane.showMessageDialog(null, "Error de acceso las credenciales no son correctas");
     } 
        
     }catch (Exception e){
