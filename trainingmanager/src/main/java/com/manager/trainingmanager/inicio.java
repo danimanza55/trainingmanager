@@ -4,6 +4,10 @@
  */
 package com.manager.trainingmanager;
 
+import ConexionesBD.Conexion;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +16,10 @@ import javax.swing.JOptionPane;
  */
 public class inicio extends javax.swing.JFrame {
 
+    
+    Conexion cc= new Conexion();
+    Connection con1=cc.conectar();
+    
     /**
      * Creates new form inicio
      */
@@ -33,11 +41,14 @@ public class inicio extends javax.swing.JFrame {
         txt_usuario = new javax.swing.JTextField();
         txt_pass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jl_usuario.setFont(new java.awt.Font("Ink Free", 1, 12)); // NOI18N
         jl_usuario.setText("Usuario:");
 
+        jl_pass.setFont(new java.awt.Font("Ink Free", 1, 12)); // NOI18N
         jl_pass.setText("Contraseña:");
 
         txt_usuario.addActionListener(new java.awt.event.ActionListener() {
@@ -52,6 +63,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Ink Free", 1, 18)); // NOI18N
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,54 +71,81 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Ink Free", 1, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Login");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jl_pass)
-                    .addComponent(jl_usuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(136, 136, 136)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                        .addComponent(txt_usuario)))
-                .addContainerGap(284, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_pass)
+                            .addComponent(jl_usuario))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(197, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_usuario)
-                    .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_pass)
-                    .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(100, 100, 100)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jl_pass)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jl_usuario)))
+                .addGap(53, 53, 53)
                 .addComponent(jButton1)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public void loginUsuario(){
-    String userReg = "admin";   //Modificar por conexion con Base de Datos y sintaxis SQL. 
-    String passReg = "12345";   
+    int resultado=0;
+    String userReg = txt_usuario.getText();
+    String passReg = String.valueOf(txt_pass.getPassword());   
+    String SQL="select * from entrenadores where usuario='"+userReg+"' and password='"+passReg+"'";
     
-    if(txt_usuario.getText().equals(userReg)&& passReg.equals(String.valueOf(txt_pass.getPassword()))){
-     
-        general form = new general();
-        form.setVisible(true);
-        this.dispose();
-    }else{
+    try{
+       Statement st = con1.createStatement();
+       ResultSet rs = st.executeQuery(SQL);
+       
+       if(rs.next()){
+           
+           resultado=1;
+           
+            if (resultado==1){
+                general form = new general();
+                form.setVisible(true);
+                this.dispose();
+      }}else{
     JOptionPane.showMessageDialog(null, "Error de acceso usuario no registrado");
-    }          
+    } 
+       
+    }catch (Exception e){
+    JOptionPane.showMessageDialog(null,"ERROR" + e.getMessage());
+    }
+             
     }
     
     
@@ -159,6 +198,7 @@ public class inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jl_pass;
     private javax.swing.JLabel jl_usuario;
     private javax.swing.JPasswordField txt_pass;
