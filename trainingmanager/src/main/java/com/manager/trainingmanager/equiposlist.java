@@ -19,8 +19,8 @@ import javax.swing.table.DefaultTableModel;
 public class equiposlist {
      public DefaultTableModel mostrarEquipos()
     {
-        String []  nombresColumnas = {"id","nombre","categoria","n_jugadores","equipacion", "id_entrenamiento"};
-        String [] registros = new String[6];
+        String []  nombresColumnas = {"id","nombre","categoria","n_jugadores","equipacion", "id_entrenamiento", "entrenador"};
+        String [] registros = new String[7];
         
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
@@ -53,6 +53,8 @@ public class equiposlist {
                 registros[4] = rs.getString("equipacion");
                 
                 registros[5] = rs.getString("id_entrenamiento");
+                
+                registros[6] = rs.getString("entrenador");
                 
                 modelo.addRow(registros);
               
