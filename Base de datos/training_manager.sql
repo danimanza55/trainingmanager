@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 06:14 PM
+-- Generation Time: Dec 12, 2021 at 06:28 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -41,6 +41,7 @@ CREATE TABLE `entrenadores` (
 --
 
 INSERT INTO `entrenadores` (`dni`, `nombre`, `n_telefono`, `email`, `usuario`, `password`) VALUES
+('11111111A', 'DemoUser', 111111111, 'demo@trainingmanager.com', 'demo', 'demo'),
 ('33344422A', 'Ahinoa Dominguez', 698744777, 'adominguez@gmail.com', 'adominguez', '87654321'),
 ('55544422A', 'Ruben Gonzalez', 666444555, 'rgonzalez@gmail.com', 'rgonzalez', '12345678'),
 ('55577788R', 'Soledad Barba', 658585858, 'sbarba@gmail.com', 'sbarba', 'abcd123'),
@@ -159,7 +160,7 @@ ALTER TABLE `entrenamientos`
 -- AUTO_INCREMENT for table `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
