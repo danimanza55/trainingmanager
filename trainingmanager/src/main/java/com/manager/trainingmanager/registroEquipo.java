@@ -211,13 +211,25 @@ public class registroEquipo extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public void registroEquipo(){
-    int resultado = 0;
-    String nombre = jnom.getText();
-    String categoria = jcat.getText();
-    String color = jcolequi.getText();
-    int n_jugadores = Integer.valueOf(jnujug.getText());
-    int id_entreno = Integer.valueOf(jidentreno.getText());
-    String entrenador = jentrenador.getText();
+        int resultado = 0;
+    String nombre = "" ;
+    String categoria = "";
+    String color = "" ;
+    int n_jugadores = 0;
+    int id_entreno = 0;
+    String entrenador = "";
+       try{
+     resultado = 0;
+     nombre = jnom.getText();
+     categoria = jcat.getText();
+     color = jcolequi.getText();
+     n_jugadores = Integer.valueOf(jnujug.getText());
+     id_entreno = Integer.valueOf(jidentreno.getText());
+     entrenador = jentrenador.getText();
+       }catch(Exception e){
+              JOptionPane.showMessageDialog(null, "Error valores mal introducidos. Comprueba lo escrito." + e.getMessage());
+
+       }
     
     String SQL="INSERT INTO equipos (nombre, categoria, n_jugadores, equipacion, id_entrenamiento, entrenador)"
             + " VALUES ('"+nombre+"','"+categoria+"','"+n_jugadores+"','"+color+"','"+id_entreno+"','"+entrenador+"')";

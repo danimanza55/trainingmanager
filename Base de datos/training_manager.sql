@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Temps de generació: 10-12-2021 a les 04:01:50
--- Versió del servidor: 10.4.17-MariaDB
--- Versió de PHP: 8.0.2
+-- Host: 127.0.0.1
+-- Generation Time: Dec 12, 2021 at 06:14 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de dades: `training_manager`
+-- Database: `training_manager`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `entrenadores`
+-- Table structure for table `entrenadores`
 --
 
 CREATE TABLE `entrenadores` (
@@ -33,13 +33,23 @@ CREATE TABLE `entrenadores` (
   `n_telefono` int(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `usuario` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `entrenadores`
+--
+
+INSERT INTO `entrenadores` (`dni`, `nombre`, `n_telefono`, `email`, `usuario`, `password`) VALUES
+('33344422A', 'Ahinoa Dominguez', 698744777, 'adominguez@gmail.com', 'adominguez', '87654321'),
+('55544422A', 'Ruben Gonzalez', 666444555, 'rgonzalez@gmail.com', 'rgonzalez', '12345678'),
+('55577788R', 'Soledad Barba', 658585858, 'sbarba@gmail.com', 'sbarba', 'abcd123'),
+('88877745X', 'Adolfo Garcia', 555888777, 'agarcia@gmail.com', 'agarcia', 'ABCDF12');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `entrenadores_equipos`
+-- Table structure for table `entrenadores_equipos`
 --
 
 CREATE TABLE `entrenadores_equipos` (
@@ -51,19 +61,32 @@ CREATE TABLE `entrenadores_equipos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `entrenamientos`
+-- Table structure for table `entrenamientos`
 --
 
 CREATE TABLE `entrenamientos` (
   `id` int(11) NOT NULL,
-  `tipo` int(11) NOT NULL,
-  `contenido` int(11) NOT NULL
+  `tipo` varchar(22) NOT NULL,
+  `contenido` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `entrenamientos`
+--
+
+INSERT INTO `entrenamientos` (`id`, `tipo`, `contenido`) VALUES
+(1, 'Fisico', 'press banca 12rep / press militar 10rep / cuerda 2 minutos / sentadilla con peso 10rep. 5 series.\n'),
+(2, 'Cardio', '4 vueltas al pabellon para calentar / lanzamiento de puestos / juego de los 10 pases / contraataques / pentalies. Entreno completo.'),
+(3, 'Fisico', 'press mancuerna 12rep / maquina gemelos 10rep / escalera step 10 vueltas / sentadilla con peso 10rep. 6 series.\r\n'),
+(4, 'Posicional', '2 Vueltas al pabellon / Lanzamiento de puestos específico / Contraataques / Partido 3 vs 3 / Posicional area 6 vs 6 aplicando lo aprendido en el 3 vs 3 / Pentalies. Entrenamiento Completo'),
+(5, 'Fisico', 'saltos con cuerda 10 min / \nsentadillas con peso 12 rep / \nsplit en banco con peso 12 rep / \nburpies 8 rep. \n5 series.\n'),
+(6, 'Relajado', '10 minutos pachanga para calentar.\n10 minutos posicional libre 6vs6.\nLanzamiento de puestos especificos.\nContraataques 4 vueltas en ambos sentidos.\nPenalties.\nEntrenamiento completo.'),
+(7, 'Fisico Intenso', 'press pierna 14rep / \nmaquina gemelos 10rep / \nbanco con peso 10 rep / \nsentadilla con peso 10rep. \n6 series.\n ');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `equipos`
+-- Table structure for table `equipos`
 --
 
 CREATE TABLE `equipos` (
@@ -71,58 +94,72 @@ CREATE TABLE `equipos` (
   `nombre` varchar(30) NOT NULL,
   `categoria` varchar(30) NOT NULL,
   `n_jugadores` int(11) NOT NULL,
-  `equipacion` varchar(30) NOT NULL
+  `equipacion` varchar(30) NOT NULL,
+  `id_entrenamiento` int(8) NOT NULL,
+  `entrenador` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Índexs per a les taules bolcades
+-- Dumping data for table `equipos`
+--
+
+INSERT INTO `equipos` (`id`, `nombre`, `categoria`, `n_jugadores`, `equipacion`, `id_entrenamiento`, `entrenador`) VALUES
+(1, 'Los Monos', 'INFANTIL MASC A', 14, 'Roja', 2, 'rgonzalez'),
+(2, 'Las Hormigas', 'CADETE FEM B', 16, 'Azul', 3, 'agarcia'),
+(3, 'Las arañas', 'CADETE MASC B', 20, 'Verde', 1, 'agarcia'),
+(4, 'Las orugas', 'JUVENIL MASC A', 22, 'Granate', 2, 'adominguez'),
+(5, 'Las momias', 'INFANTIL FEM C', 15, 'Blanco', 2, 'rgonzalez');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Índexs per a la taula `entrenadores`
+-- Indexes for table `entrenadores`
 --
 ALTER TABLE `entrenadores`
-  ADD PRIMARY KEY (`dni`);
+  ADD PRIMARY KEY (`dni`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
 
 --
--- Índexs per a la taula `entrenadores_equipos`
+-- Indexes for table `entrenadores_equipos`
 --
 ALTER TABLE `entrenadores_equipos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índexs per a la taula `entrenamientos`
+-- Indexes for table `entrenamientos`
 --
 ALTER TABLE `entrenamientos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índexs per a la taula `equipos`
+-- Indexes for table `equipos`
 --
 ALTER TABLE `equipos`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT per les taules bolcades
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT per la taula `entrenadores_equipos`
+-- AUTO_INCREMENT for table `entrenadores_equipos`
 --
 ALTER TABLE `entrenadores_equipos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la taula `entrenamientos`
+-- AUTO_INCREMENT for table `entrenamientos`
 --
 ALTER TABLE `entrenamientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT per la taula `equipos`
+-- AUTO_INCREMENT for table `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
