@@ -222,12 +222,20 @@ public class registroUsuario extends javax.swing.JFrame {
      */
     public void registroEntrenador(){
     int resultado = 0;
-    String dni = jdni.getText();
-    String nombre = jnombre.getText();
-    int n_telefono = Integer.valueOf(jntelefono.getText());
-    String email = jemail.getText();
-    String usuario = juser.getText();
-    String pass = String.valueOf(jpass.getPassword());
+    String dni = "";
+    String nombre = "";
+    int n_telefono = 0;
+    String email = "";
+    String usuario = "";
+    String pass = "";
+    
+    try{
+     dni = jdni.getText();
+     nombre = jnombre.getText();
+     n_telefono = Integer.valueOf(jntelefono.getText());
+     email = jemail.getText();
+     usuario = juser.getText();
+     pass = String.valueOf(jpass.getPassword());
     
     String SQL="INSERT INTO entrenadores (dni, nombre, n_telefono, email, usuario, password)"
             + " VALUES ('"+dni+"','"+nombre+"','"+n_telefono+"','"+email+"','"+usuario+"','"+pass+"')";
@@ -251,7 +259,10 @@ public class registroUsuario extends javax.swing.JFrame {
     }catch (Exception e){
     JOptionPane.showMessageDialog(null,"ERROR" + e.getMessage());
     }
-    
+    }catch(Exception e){
+              JOptionPane.showMessageDialog(null, "Error valores mal introducidos. Comprueba lo escrito." + e.getMessage());
+
+       }
     
     }
     

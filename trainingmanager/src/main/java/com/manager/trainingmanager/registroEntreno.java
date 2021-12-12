@@ -156,8 +156,12 @@ public class registroEntreno extends javax.swing.JFrame {
      */
     public void registroEntreno(){
     int resultado = 0;
-    String var_tipo = tipo.getText();
-    String var_contenido = contenido.getText();
+    String var_tipo = "";
+    String var_contenido ="";
+    
+    try{
+     var_tipo = tipo.getText();
+     var_contenido = contenido.getText();
     
     String SQL="INSERT INTO entrenamientos (tipo, contenido)"
             + " VALUES ('"+var_tipo+"','"+var_contenido+"')";
@@ -182,7 +186,10 @@ public class registroEntreno extends javax.swing.JFrame {
     }catch (Exception e){
     JOptionPane.showMessageDialog(null,"ERROR" + e.getMessage());
     }
-    
+    }catch(Exception e){
+              JOptionPane.showMessageDialog(null, "Error valores mal introducidos. Comprueba lo escrito." + e.getMessage());
+
+       }
     
     }
     

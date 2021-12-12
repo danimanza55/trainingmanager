@@ -218,7 +218,9 @@ public class registroEquipo extends javax.swing.JFrame {
     int n_jugadores = 0;
     int id_entreno = 0;
     String entrenador = "";
-       try{
+      
+    
+    try{
      resultado = 0;
      nombre = jnom.getText();
      categoria = jcat.getText();
@@ -226,10 +228,7 @@ public class registroEquipo extends javax.swing.JFrame {
      n_jugadores = Integer.valueOf(jnujug.getText());
      id_entreno = Integer.valueOf(jidentreno.getText());
      entrenador = jentrenador.getText();
-       }catch(Exception e){
-              JOptionPane.showMessageDialog(null, "Error valores mal introducidos. Comprueba lo escrito." + e.getMessage());
-
-       }
+       
     
     String SQL="INSERT INTO equipos (nombre, categoria, n_jugadores, equipacion, id_entrenamiento, entrenador)"
             + " VALUES ('"+nombre+"','"+categoria+"','"+n_jugadores+"','"+color+"','"+id_entreno+"','"+entrenador+"')";
@@ -254,7 +253,10 @@ public class registroEquipo extends javax.swing.JFrame {
     }catch (Exception e){
     JOptionPane.showMessageDialog(null,"ERROR" + e.getMessage());
     }
-    
+    }catch(Exception e){
+              JOptionPane.showMessageDialog(null, "Error valores mal introducidos. Comprueba lo escrito." + e.getMessage());
+
+       }
     
     }
     
