@@ -17,6 +17,13 @@ import javax.swing.table.DefaultTableModel;
  * @author dani_
  */
 public class equiposlist {
+    
+    private String entrenador ="";
+    
+    public void setEntrenador(String trainer){
+        entrenador = trainer;
+        }
+    
      public DefaultTableModel mostrarEquipos()
     {
         String []  nombresColumnas = {"id","nombre","categoria","n_jugadores","equipacion", "id_entrenamiento", "entrenador"};
@@ -24,8 +31,10 @@ public class equiposlist {
         
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
-        String sql = "SELECT * FROM equipos";
         
+       
+        String sql = "SELECT * FROM equipos";
+        String sql2 = "SELECT * FROM equipos WHERE entrenador='"+entrenador+"'";
         Connection cn = null;
         
         PreparedStatement pst = null;
@@ -36,8 +45,12 @@ public class equiposlist {
         {
             cn = Conexion.conectar();
             
+          if (entrenador!=""){
+            pst = cn.prepareStatement(sql2);                        
+
+          }else{
             pst = cn.prepareStatement(sql);                        
-            
+          }
             rs = pst.executeQuery();
             
             while(rs.next())
